@@ -1,0 +1,38 @@
+name: Automate Steam Data Preprocessing
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch: 
+
+jobs:
+  preprocess:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pandas scikit-learn
+
+    - name: Run Automate Script
+      run: |
+        cd preprocessing
+        python automate_Putu-Rama.py
+
+    - name: Commit and Push Preprocessed Data
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action Workflow"
+        git add preprocessing/steam_dataset_preprocessing/
+        git commit -m "Auto-update preprocessed Steam dataset" || echo "No changes to commit"
+        git push
