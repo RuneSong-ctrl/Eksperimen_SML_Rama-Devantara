@@ -27,7 +27,7 @@ jobs:
     - name: Run Automate Script
       run: |
         cd preprocessing
-        python automate_Putu-Rama.py
+        python automate_Rama-Devantara.py
 
     - name: Commit and Push Preprocessed Data
       run: |
